@@ -6,10 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXFileReference section */
+		0CEFB1CF2DD247870074D5EB /* FindMaxInArr.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = FindMaxInArr.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		0CEFB1C82DD247380074D5EB = {
 			isa = PBXGroup;
 			children = (
+				0CEFB1CF2DD247870074D5EB /* FindMaxInArr.playground */,
 			);
 			sourceTree = "<group>";
 		};
