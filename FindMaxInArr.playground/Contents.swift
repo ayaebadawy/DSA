@@ -31,3 +31,54 @@ func getMaxFromArrayWithNegative(_ nums: [Int]) -> Int {
 }
 
 getMaxFromArrayWithNegative(numsWithNegatives)
+
+/*
+ Location    First Octet Range    Description
+ Location 1    0 to 127    Class A range (example: private/public)
+ Location 2    128 to 191    Class B range
+ Location 3    192 to 223    Class C range
+ Location 4    224 to 239    Class D (multicast addresses)
+ Location 5    240 to 255    Class E (experimental)
+ */
+
+func locationDetection(_ ip_address: [String]) -> [Int] {
+    var results: [Int] = []
+    
+    main: for (i, address) in ip_address.enumerated() {
+        let octets = address.split(separator: ".")
+        if octets.count != 4 {
+            results.append(-1)
+            continue
+        }
+        else {
+            for octet in octets {
+                if Int(octet)! > 255 {
+                    results.append(-1)
+                    continue main
+                }
+            }
+        }
+        let firstOctet = Int(octets[0])!
+        switch firstOctet {
+        case 0...127: results.append(1)
+        case 128...191: results.append(2)
+        case 192...223: results.append(3)
+        case 224...239: results.append(4)
+        case 240...255: results.append(5)
+        default: results.append(-1) // Should never hit this
+        }
+    }
+    
+    return results
+}
+
+locationDetection([
+    "225.45.67.89",
+    "192.255.255.1",
+    "10.10.10.232",
+    "0.0.550.226",
+    "255.255.255.255",
+    "123.234.240.10",
+    "225.225.225.400",
+])
+
