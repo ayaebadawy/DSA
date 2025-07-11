@@ -82,3 +82,29 @@ locationDetection([
     "225.225.225.400",
 ])
 
+func calculate(_ s: String) -> Int {
+        var n = 0
+        var stack = [Int]()
+        var op = "+"
+        for char in s+"+" where char != " " {
+            if let number = char.wholeNumberValue {
+                n = n * 10 + number
+            } else {
+                // we encounter an op
+                switch op {
+                    case "+":
+                    stack.append(n)
+                    case "-":
+                    stack.append(-n)
+                    case "*":
+                    stack.append(stack.removeLast() * n)
+                    case "/":
+                    stack.append(stack.removeLast() / n)
+                    default: break
+                }
+                n = 0
+                op = String(char)
+            }
+        }
+        return stack.reduce(0, +)
+    }
