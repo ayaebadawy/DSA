@@ -108,3 +108,20 @@ func calculate(_ s: String) -> Int {
         }
         return stack.reduce(0, +)
     }
+
+func groupStrings(_ strings: [String]) -> [[String]] {
+        var dict: [[Int: [Int]] : [String]] = [:]
+        for s in strings {
+            let arr = Array(s)
+            var distance: [Int] = []
+
+            for i in 0..<arr.count - 1 {
+                let curr = Int(arr[i].asciiValue!)
+                let next = Int(arr[i+1].asciiValue!)
+                let d = next > curr ? next - curr : 26 - (curr - next)
+                distance.append(d)
+            }
+            dict[[arr.count: distance], default: []].append(s)
+        }
+        return Array(dict.values)
+    }
