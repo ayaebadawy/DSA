@@ -125,3 +125,76 @@ func groupStrings(_ strings: [String]) -> [[String]] {
         }
         return Array(dict.values)
     }
+
+func numIslands2(_ m: Int, _ n: Int, _ positions: [[Int]]) -> [Int] {
+    var grid = Array(repeating: Array(repeating: 0, count: n), count: m)
+    var result: [Int] = []
+    var islandCount = 0
+    var nextIslandId = 1
+    let directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+    
+    // DFS to mark all connected cells with the same island ID
+    func dfs(_ row: Int, _ col: Int, _ targetId: Int, _ newId: Int) {
+        if row < 0 || row >= m || col < 0 || col >= n || grid[row][col] != targetId {
+            return
+        }
+        
+        grid[row][col] = newId
+        
+        for (dr, dc) in directions {
+            dfs(row + dr, col + dc, targetId, newId)
+        }
+    }
+    
+    for position in positions {
+        let row = position[0]
+        let col = position[1]
+        
+        // Skip if already land
+        if grid[row][col] != 0 {
+            result.append(islandCount)
+            continue
+        }
+        
+        // Get unique neighbor island IDs
+        var neighborIslands = Set<Int>()
+        for (dr, dc) in directions {
+            let newRow = row + dr
+            let newCol = col + dc
+            
+            if newRow >= 0 && newRow < m && newCol >= 0 && newCol < n && grid[newRow][newCol] > 0 {
+                neighborIslands.insert(grid[newRow][newCol])
+            }
+        }
+        
+        if neighborIslands.isEmpty {
+            // New isolated island
+            grid[row][col] = nextIslandId
+            nextIslandId += 1
+            islandCount += 1
+        } else {
+            // Merge with existing islands
+            let mainId = neighborIslands.min()!
+            grid[row][col] = mainId
+            
+            // Merge all different islands into one
+            for neighborId in neighborIslands {
+                if neighborId != mainId {
+                    // Find and merge this island
+                    for i in 0..<m {
+                        for j in 0..<n {
+                            if grid[i][j] == neighborId {
+                                dfs(i, j, neighborId, mainId)
+                            }
+                        }
+                    }
+                    islandCount -= 1
+                }
+            }
+        }
+        
+        result.append(islandCount)
+    }
+    
+    return result
+}
