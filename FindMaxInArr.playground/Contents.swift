@@ -198,3 +198,39 @@ func numIslands2(_ m: Int, _ n: Int, _ positions: [[Int]]) -> [Int] {
     
     return result
 }
+
+class HitCounter {
+    var hits: [Int]
+
+    init() {
+        hits = []
+    }
+    
+    func hit(_ timestamp: Int) {
+        hits.append(timestamp)
+    }
+    
+    func getHits(_ timestamp: Int) -> Int {
+        let target = timestamp - 300
+        var l = 0, r = hits.count - 1
+        while l <= r {
+            let m = (l + r) / 2
+            if hits[m] <= target {
+                l = m + 1
+            } else {
+                r = m - 1
+            }
+        }
+        // Optional: remove old entries to prevent growth
+        // hits = Array(hits[l...])
+        return hits.count - l
+    }
+}
+
+
+/**
+ * Your HitCounter object will be instantiated and called as such:
+ * let obj = HitCounter()
+ * obj.hit(timestamp)
+ * let ret_2: Int = obj.getHits(timestamp)
+ */
