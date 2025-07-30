@@ -7,7 +7,20 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		0C62212E2E39FD3800DAA0D0 /* LinkedLists.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = LinkedLists.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0C8B452B2E39FC48006CFB15 /* BinarySearch.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = BinarySearch.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0CCFDA6F2E39FC6D008E0875 /* SlidingWindow.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = SlidingWindow.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0CCFDA702E39FC78008E0875 /* TowPointers.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TowPointers.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0CCFDA712E39FC7A008E0875 /* Strings.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Strings.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0CCFDA722E39FC7B008E0875 /* Stack.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Stack.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0CCFDA732E39FC83008E0875 /* Design.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Design.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0CCFDA742E39FD1D008E0875 /* Trees.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Trees.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0CCFDA752E39FD27008E0875 /* Backtracking.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Backtracking.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0CD95AC82E39FD7B00A6912D /* Math.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Math.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		0CEFB1CF2DD247870074D5EB /* FindMaxInArr.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = FindMaxInArr.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0CFC03632E3913C900DA5CF7 /* Arrays&Hashmaps.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Arrays&Hashmaps.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0CFC03642E39FB2800DA5CF7 /* DFS.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = DFS.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0CFC03652E39FB3100DA5CF7 /* BFS.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = BFS.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -15,6 +28,19 @@
 			isa = PBXGroup;
 			children = (
 				0CEFB1CF2DD247870074D5EB /* FindMaxInArr.playground */,
+				0CFC03632E3913C900DA5CF7 /* Arrays&Hashmaps.playground */,
+				0CCFDA712E39FC7A008E0875 /* Strings.playground */,
+				0CCFDA722E39FC7B008E0875 /* Stack.playground */,
+				0CCFDA732E39FC83008E0875 /* Design.playground */,
+				0CCFDA702E39FC78008E0875 /* TowPointers.playground */,
+				0C8B452B2E39FC48006CFB15 /* BinarySearch.playground */,
+				0CCFDA6F2E39FC6D008E0875 /* SlidingWindow.playground */,
+				0C62212E2E39FD3800DAA0D0 /* LinkedLists.playground */,
+				0CCFDA742E39FD1D008E0875 /* Trees.playground */,
+				0CCFDA752E39FD27008E0875 /* Backtracking.playground */,
+				0CFC03652E39FB3100DA5CF7 /* BFS.playground */,
+				0CFC03642E39FB2800DA5CF7 /* DFS.playground */,
+				0CD95AC82E39FD7B00A6912D /* Math.playground */,
 			);
 			sourceTree = "<group>";
 		};
