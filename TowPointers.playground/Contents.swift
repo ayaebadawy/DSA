@@ -36,3 +36,29 @@ func threeSum(_ nums: [Int]) -> [[Int]] {
     return Array(res)
 }
 
+//986. Interval List Intersections
+// https://leetcode.com/problems/interval-list-intersections/description/?envType=company&envId=facebook&favoriteSlug=facebook-thirty-days
+//Time O (N+M) size of 2 lists
+func intervalIntersection(_ firstList: [[Int]], _ secondList: [[Int]]) -> [[Int]] {
+    if firstList.isEmpty || secondList.isEmpty { return [] }
+    var res = [[Int]](), i = 0, j = 0
+    
+    while i < firstList.count && j < secondList.count {
+        let start1 = firstList[i][0], end1 = firstList[i][1]
+        let start2 = secondList[j][0], end2 = secondList[j][1]
+        // get the intersection interval
+        let start = max(start1,start2)
+        let end = min(end1,end2)
+        
+        if start <= end {
+            res.append([start, end])
+        }
+        
+        if end1 < end2 {
+            i += 1
+        } else {
+            j += 1
+        }
+    }
+    return res
+}
