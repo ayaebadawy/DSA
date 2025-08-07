@@ -25,3 +25,14 @@ func isAnagram(_ s: String, _ t: String) -> Bool {
     return sDict == tDict
 }
 isAnagram("anagram", "nagaram")
+
+//1. Two Sum
+//https://leetcode.com/problems/two-sum/description/
+func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
+    var dict = [Int: Int]()
+    for (i, n) in nums.enumerated() {
+        if let index = dict[target-n] { return [i, index] }
+        dict[n] = i
+    }
+    return []
+}
