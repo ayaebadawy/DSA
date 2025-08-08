@@ -70,3 +70,27 @@ func topKFrequent(_ nums: [Int], _ k: Int) -> [Int] {
     }
     return res
 }
+
+//36. Valid Sudoku Time O(n^2)
+// https://leetcode.com/problems/valid-sudoku/description/
+func isValidSudoku(_ board: [[Character]]) -> Bool {
+    var dictRow = [Int: [Character]]()
+    var dictCol = [Int: [Character]]()
+    var dictSqr = [String: [Character]]()
+    for r in 0..<board.count {
+        for c in 0..<board[0].count {
+            let cur = board[r][c]
+            if cur == "." { continue }
+            if dictRow[r, default: []].contains(cur) ||
+                dictCol[c, default: []].contains(cur) ||
+                dictSqr[String(r/3) + String(c/3), default: []].contains(cur) {
+                return false
+            } else {
+                dictRow[r, default: []].append(cur)
+                dictCol[c, default: []].append(cur)
+                dictSqr[String(r/3) + String(c/3), default: []].append(cur)
+            }
+        }
+    }
+    return true
+}
