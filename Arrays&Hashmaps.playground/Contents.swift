@@ -36,3 +36,15 @@ func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
     }
     return []
 }
+twoSum([2,7,11,15], 9)
+
+//49. Group Anagrams
+//https://leetcode.com/problems/group-anagrams/description/
+func groupAnagrams(_ strs: [String]) -> [[String]] {
+    var dict = [String: [String]]() //sorted char of anagrams, string
+    for s in strs {
+        let sorted = String(s.sorted())
+        dict[sorted, default: []].append(s)
+    }
+    return Array(dict.values)
+}
