@@ -48,3 +48,25 @@ func groupAnagrams(_ strs: [String]) -> [[String]] {
     }
     return Array(dict.values)
 }
+
+//https://leetcode.com/problems/encode-and-decode-strings/description/
+//
+
+//347. Top K Frequent Elements (Bucket sort) Time O(n)
+//https://leetcode.com/problems/top-k-frequent-elements/description/
+func topKFrequent(_ nums: [Int], _ k: Int) -> [Int] {
+    var dict = [Int: Int]() //num: count
+    var bucket: [[Int]] = Array(repeating: [], count: nums.count + 1) // index = count, values = elements
+    var res = [Int]()
+    for n in nums {
+        dict[n, default: 0] += 1
+    }
+    for (key, value) in dict {
+        bucket[value].append(key)
+    }
+    for i in stride(from: bucket.count - 1, to: 0, by: -1) {
+        res.append(contentsOf: bucket[i])
+        if res.count == k { break }
+    }
+    return res
+}
