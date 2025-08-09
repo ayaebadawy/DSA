@@ -94,3 +94,22 @@ func isValidSudoku(_ board: [[Character]]) -> Bool {
     }
     return true
 }
+
+//238. Product of Array Except Self
+//https://leetcode.com/problems/product-of-array-except-self/description/
+func productExceptSelf(_ nums: [Int]) -> [Int] {
+    var res = Array(repeating: 1, count: nums.count)
+    var prefix = 1, postfix = 1
+    for (i,n) in nums.enumerated() {
+        res[i] = prefix
+        prefix *= nums[i]
+    }
+    for i in stride(from: nums.count - 1, through: 0, by: -1) {
+        res[i] *= postfix
+        postfix *= nums[i]
+    }
+    return res
+}
+
+productExceptSelf([1,2,3,4])
+
