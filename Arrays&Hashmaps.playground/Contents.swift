@@ -113,3 +113,21 @@ func productExceptSelf(_ nums: [Int]) -> [Int] {
 
 productExceptSelf([1,2,3,4])
 
+//128. Longest Consecutive Sequence
+//https://leetcode.com/problems/longest-consecutive-sequence/description/
+func longestConsecutive(_ nums: [Int]) -> Int {
+    var longest = 0
+    let nums = Set(nums)
+    for n in nums {
+        if !nums.contains(n-1) { // the begining of a seq
+            var cur = n
+            var curSeq = 1
+            while nums.contains(cur+1) {
+                curSeq += 1
+                cur += 1
+            }
+            longest = max(longest, curSeq)
+        }
+    }
+    return longest
+}
