@@ -1,5 +1,18 @@
 import Foundation
 
+//125. Valid Palindrome
+//https://leetcode.com/problems/valid-palindrome/description/
+func isPalindrome(_ s: String) -> Bool {
+    let s = Array(s.lowercased()).filter { $0.isLetter || $0.isNumber }
+    var l = 0, r = s.count - 1
+    while l <= r {
+        if s[l] != s[r] { return false }
+        l += 1
+        r -= 1
+    }
+    return true
+}
+
 // 283. Move Zeroes
 func moveZeroes(_ nums: inout [Int]) {
     var l = 0
