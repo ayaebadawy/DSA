@@ -13,6 +13,19 @@ func isPalindrome(_ s: String) -> Bool {
     return true
 }
 
+//11. Container With Most Water
+//https://leetcode.com/problems/container-with-most-water/
+func maxArea(_ height: [Int]) -> Int {
+    var res = 0, l = 0, r = height.count - 1
+    while l < r {
+        let area = (r - l) * min(height[l], height[r])
+        res = max(res, area)
+        if height[l] < height[r] { l += 1 }
+        else { r -= 1 }
+    }
+    return res
+}
+
 // 283. Move Zeroes
 func moveZeroes(_ nums: inout [Int]) {
     var l = 0
