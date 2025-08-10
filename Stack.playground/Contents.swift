@@ -69,3 +69,27 @@ class MinStack {
     }
 }
 
+//150. Evaluate Reverse Polish Notation
+//https://leetcode.com/problems/evaluate-reverse-polish-notation/
+func evalRPN(_ tokens: [String]) -> Int {
+    var res = [Int]()
+    for t in tokens {
+        if let num = Int(t) { res.append(num) }
+        else {
+            var op2 = res.removeLast()
+            var op1 = res.removeLast()
+            res.append(preform(op1, op2, t))
+        }
+    }
+    return res[0]
+}
+
+func preform(_ op1: Int,_ op2: Int, _ operation: String) -> Int {
+    if operation == "+" { return op1 + op2 }
+    else if operation == "-" { return op1 - op2 }
+    else if operation == "*" { return op1 * op2 }
+    else { return op1 / op2 }
+}
+
+evalRPN(["4","13","5","/","+"])
+
