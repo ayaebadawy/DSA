@@ -26,6 +26,26 @@ func maxArea(_ height: [Int]) -> Int {
     return res
 }
 
+//https://leetcode.com/problems/trapping-rain-water/
+//42. Trapping Rain Water
+func trap(_ height: [Int]) -> Int {
+    if height.isEmpty { return 0 }
+    var l = 0, r = height.count - 1, res = 0
+    var maxL = height[l], maxR = height[r]
+    while l < r {
+        if height[l] < height[r] {
+            l += 1
+            maxL = max(maxL, height[l])
+            res += maxL - height[l]
+        } else {
+            r -= 1
+            maxR = max(maxR, height[r])
+            res += maxR - height[r]
+        }
+    }
+    return res
+}
+
 // 283. Move Zeroes
 func moveZeroes(_ nums: inout [Int]) {
     var l = 0
