@@ -34,3 +34,38 @@ func isMatch(_ openP: Character, _ closeP: Character) -> Bool {
 }
 
 isValid("[")
+
+//155. Min Stack
+//https://leetcode.com/problems/min-stack/description/
+class MinStack {
+    
+    var stack: [Int]
+    var minStack: [Int]
+    
+    init() {
+        stack = []
+        minStack = []
+    }
+    
+    func push(_ val: Int) {
+        stack.append(val)
+        if minStack.isEmpty { minStack.append(val) }
+        else { minStack.append(min(minStack.last!, val)) }
+    }
+    
+    func pop() {
+        stack.removeLast()
+        minStack.removeLast()
+    }
+    
+    func top() -> Int {
+        guard let last = stack.last else { return -1 }
+        return last
+    }
+    
+    func getMin() -> Int {
+        guard let last = minStack.last else { return -1 }
+        return last
+    }
+}
+
