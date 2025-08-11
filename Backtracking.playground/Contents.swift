@@ -39,7 +39,7 @@ generateParenthesis(2)
  │           └── backtrack(2, 2, 2, "()()") ✅ base case → append "()()"
  */
 
-//78. Subsets Time O(n*2^n) 2^n because of the tree call
+//78. Subsets Time O(n*2^n) 2^n because of the tree call and extra n becase the subset it self to build it and store it takes n
 //https://leetcode.com/problems/subsets/description/
 func subsets(_ nums: [Int]) -> [[Int]] {
     var subsets = [[Int]]()
@@ -69,8 +69,8 @@ func subsetsWithReturnFromBacktrack(_ nums: [Int]) -> [[Int]] {
     return backtrack(0, [])
 }
 
+//90. Subsets II Time O(n*2^n) 2^n because of the tree call and extra n becase the subset it self to build it and store it takes n
 //https://leetcode.com/problems/subsets-ii/description/
-//90. Subsets II
 func subsetsWithDup(_ nums: [Int]) -> [[Int]] {
     let nums = nums.sorted()
     var res = [[Int]]()
