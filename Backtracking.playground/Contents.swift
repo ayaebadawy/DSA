@@ -68,3 +68,26 @@ func subsetsWithReturnFromBacktrack(_ nums: [Int]) -> [[Int]] {
     }
     return backtrack(0, [])
 }
+
+//https://leetcode.com/problems/subsets-ii/description/
+//90. Subsets II
+func subsetsWithDup(_ nums: [Int]) -> [[Int]] {
+    let nums = nums.sorted()
+    var res = [[Int]]()
+    backtrack(0,[])
+    return res
+    func backtrack(_ i: Int, _ curset: [Int]) {
+        var i = i
+        if i >= nums.count {
+            res.append(curset)
+            return
+        }
+        //include the num
+        backtrack(i+1, curset + [nums[i]])
+        //exclude the num with all it's occurences
+        while i + 1 < nums.count && nums[i] == nums[i+1] {
+            i += 1
+        }
+        backtrack(i+1, curset)
+    }
+}
