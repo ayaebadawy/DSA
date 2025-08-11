@@ -1,11 +1,11 @@
 import Foundation
 
 /*
-backtracting is walking a maze:
-At each junction, you choose a valid direction and go forward.
-Once you reach the end (a base case), you walk back to the last junction and try the next unexplored path.
-You don’t go back and re-walk the same path you already finished.
-*/
+ backtracting is walking a maze:
+ At each junction, you choose a valid direction and go forward.
+ Once you reach the end (a base case), you walk back to the last junction and try the next unexplored path.
+ You don’t go back and re-walk the same path you already finished.
+ */
 
 //22. Generate Parentheses Time(2^n) beacuse of how the tree in built Space O(n) the call stack
 //Stack + backtracking problem
@@ -38,3 +38,33 @@ generateParenthesis(2)
  │       └── backtrack(2, 1, 2, "()(")
  │           └── backtrack(2, 2, 2, "()()") ✅ base case → append "()()"
  */
+
+//78. Subsets Time O(n*2^n) 2^n because of the tree call
+//https://leetcode.com/problems/subsets/description/
+func subsets(_ nums: [Int]) -> [[Int]] {
+    var subsets = [[Int]]()
+    backtracking(0, [])
+    return subsets
+    func backtracking(_ i: Int, _ current: [Int]) {
+        if i >= nums.count { //basecase we reached bound
+            subsets.append(current)
+            return
+        }
+        //include the num
+        backtracking(i+1, current + [nums[i]])
+        //not include the num
+        backtracking(i+1, current)
+    }
+}
+
+func subsetsWithReturnFromBacktrack(_ nums: [Int]) -> [[Int]] {
+    func backtrack(_ i: Int, _ current: [Int]) -> [[Int]] {
+        if i >= nums.count {
+            return [current]  // ✅ base case returns a wrapped result
+        }
+        let include = backtrack(i + 1, current + [nums[i]])
+        let exclude = backtrack(i + 1, current)
+        return include + exclude  // ✅ merge results and return
+    }
+    return backtrack(0, [])
+}
