@@ -146,3 +146,27 @@ func combinationSum(_ candidates: [Int], _ target: Int) -> [[Int]] {
         backtrack(i+1, comp, total)
     }
 }
+
+//17. Letter Combinations of a Phone Number
+//https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+func letterCombinations(_ digits: String) -> [String] {
+    guard !digits.isEmpty else { return [] }
+    let digitArr = Array(digits)
+    var dict: [Character: String] = [
+        "2": "abc", "3": "def", "4": "ghi", "5": "jkl",
+        "6": "mno", "7": "pqrs", "8": "tuv","9": "wxyz"
+    ]
+    var res = [String]()
+    backtrack(0,"")
+    return res
+    func backtrack(_ i: Int, _ str: String) {
+        if str.count == digits.count {
+            res.append(str)
+            return
+        }
+        if i >= digitArr.count { return }
+        for c in dict[digitArr[i]]! {
+            backtrack(i+1, str + String(c))
+        }
+    }
+}
