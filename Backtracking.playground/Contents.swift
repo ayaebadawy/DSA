@@ -127,3 +127,22 @@ func combineOp(_ n: Int, _ k: Int) -> [[Int]] {
         }
     }
 }
+
+//39. Combination Sum
+//https://leetcode.com/problems/combination-sum/description/
+func combinationSum(_ candidates: [Int], _ target: Int) -> [[Int]] {
+    var res = [[Int]]()
+    backtrack(0,[],0)
+    return res
+    func backtrack(_ i: Int, _ comp: [Int], _ total: Int) {
+        if total == target {
+            res.append(comp)
+            return
+        }
+        if i >= candidates.count || total > target { return }
+        //include num
+        backtrack(i, comp + [candidates[i]], total + candidates[i])
+        //exclude num
+        backtrack(i+1, comp, total)
+    }
+}
