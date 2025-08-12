@@ -91,3 +91,22 @@ func subsetsWithDup(_ nums: [Int]) -> [[Int]] {
         backtrack(i+1, curset)
     }
 }
+
+//77. Combinations Time O(k*2^n) 2^n is the call stack for the tree or the tree size and k for building the set it self
+// https://leetcode.com/problems/combinations/description/
+func combine(_ n: Int, _ k: Int) -> [[Int]] {
+    var res = [[Int]]()
+    backtrack(1,[])
+    return res
+    func backtrack(_ i:Int, _ comp: [Int]) {
+        if comp.count == k {
+            res.append(comp)
+            return
+        }
+        if i > n { return }
+        //include num
+        backtrack(i+1, comp + [i])
+        //not include the num
+        backtrack(i+1, comp)
+    }
+}
