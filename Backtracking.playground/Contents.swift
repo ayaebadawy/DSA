@@ -110,3 +110,20 @@ func combine(_ n: Int, _ k: Int) -> [[Int]] {
         backtrack(i+1, comp)
     }
 }
+// slightly optimized solution with Time (k* C(n,k)) aka choose n size k, we do not need to not include any number we need to choose between k num so we choose to get the range of this number and the rest untill n if we include 1 then at 2 we do not want to include one again but we want a range from 2 to n and so on
+func combineOp(_ n: Int, _ k: Int) -> [[Int]] {
+    var res = [[Int]]()
+    backtrack(1,[])
+    return res
+    func backtrack(_ i:Int, _ comp: [Int]) {
+        if comp.count == k {
+            res.append(comp)
+            return
+        }
+        if i > n { return }
+        //include range
+        for j in i...n {
+            backtrack(j+1, comp + [j])
+        }
+    }
+}
