@@ -170,3 +170,25 @@ func letterCombinations(_ digits: String) -> [String] {
         }
     }
 }
+
+//46. Permutations Time O(n*n!) n! as the premutation choose from 4 then 3 then 2 then 1 and that's factorial, and n because fore loop that tries every value that was not yest used.
+//https://leetcode.com/problems/permutations/description/
+func permute(_ nums: [Int]) -> [[Int]] {
+    var res = [[Int]]()
+    var used = [Bool](repeating: false, count: nums.count)
+    backtrack([])
+    return res
+    func backtrack(_ perm: [Int]) {
+        if perm.count == nums.count {
+            res.append(perm)
+            return
+        }
+        
+        for i in 0..<nums.count {
+            if used[i] { continue }
+            used[i] = true
+            backtrack(perm + [nums[i]])
+            used[i] = false
+        }
+    }
+}
