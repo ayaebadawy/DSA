@@ -192,3 +192,39 @@ func permute(_ nums: [Int]) -> [[Int]] {
         }
     }
 }
+
+/*
+ Start: []
+ → Choose 1 → [1]
+    → Choose 2 → [1,2]
+       → Choose 3 → [1,2,3] ✅
+    → Choose 3 → [1,3]
+       → Choose 2 → [1,3,2] ✅
+ → Choose 2 → [2]
+    → Choose 1 → [2,1]
+       → Choose 3 → [2,1,3] ✅
+ ... etc.
+ */
+
+//47. Permutations II Same Time as 46. Permutations
+//https://leetcode.com/problems/permutations-ii/description/
+func permuteUnique(_ nums: [Int]) -> [[Int]] {
+    let nums = nums.sorted()
+    var res = [[Int]]()
+    var used = [Bool](repeating: false, count: nums.count)
+    backtrack([])
+    return res
+    func backtrack(_ perm: [Int]) {
+        if perm.count == nums.count {
+            res.append(perm)
+            return
+        }
+        for i in 0..<nums.count {
+            if used[i] { continue }
+            if i > 0 && nums[i] == nums[i-1] && !used[i-1] { continue }
+            used[i] = true
+            backtrack(perm + [nums[i]])
+            used[i] = false
+        }
+    }
+}
