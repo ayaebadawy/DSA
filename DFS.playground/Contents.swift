@@ -94,3 +94,43 @@ func exist(_ board: [[Character]], _ word: String) -> Bool {
     
     return false
 }
+
+// 131. Palindrome Partitioning
+// https://leetcode.com/problems/palindrome-partitioning/description/
+func partition(_ s: String) -> [[String]] {
+    var res = [[String]]()
+    var part = [String]()
+    let sArray = Array(s)
+    
+    func dfs(_ j: Int, _ i: Int) {
+        if i >= sArray.count {
+            if i == j {
+                res.append(part)
+            }
+            return
+        }
+        
+        if isPali(sArray, j, i) {
+            part.append(String(sArray[j...i]))
+            dfs(i + 1, i + 1)
+            part.removeLast()
+        }
+        
+        dfs(j, i + 1)
+    }
+    
+    func isPali(_ s: [Character], _ l: Int, _ r: Int) -> Bool {
+        var l = l, r = r
+        while l < r {
+            if s[l] != s[r] {
+                return false
+            }
+            l += 1
+            r -= 1
+        }
+        return true
+    }
+    
+    dfs(0, 0)
+    return res
+}
