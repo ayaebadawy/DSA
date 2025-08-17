@@ -99,38 +99,31 @@ func exist(_ board: [[Character]], _ word: String) -> Bool {
 // https://leetcode.com/problems/palindrome-partitioning/description/
 func partition(_ s: String) -> [[String]] {
     var res = [[String]]()
-    var part = [String]()
-    let sArray = Array(s)
+    let arr = Array(s)
+    dfs(0,[])
+    return res
     
-    func dfs(_ j: Int, _ i: Int) {
-        if i >= sArray.count {
-            if i == j {
-                res.append(part)
-            }
+    func dfs(_ i: Int, _ part: [String]) {
+        if i >= arr.count {
+            res.append(part)
             return
         }
-        
-        if isPali(sArray, j, i) {
-            part.append(String(sArray[j...i]))
-            dfs(i + 1, i + 1)
-            part.removeLast()
+        for j in i..<arr.count { // checks all possible substrings from i ... end and checks if it's a palindrom, if it is we append it and recursivly call dfs on the next sub string starting at j
+            if isPali(i,j) {
+                dfs(j+1, part + [String(arr[i...j])])
+            }
         }
-        
-        dfs(j, i + 1)
     }
     
-    func isPali(_ s: [Character], _ l: Int, _ r: Int) -> Bool {
-        var l = l, r = r
+    func isPali(_ l: Int, _ r: Int) -> Bool {
+        var l = l , r = r
         while l < r {
-            if s[l] != s[r] {
-                return false
+            if arr[l] != arr[r] { return false }
+            else {
+                l += 1
+                r -= 1
             }
-            l += 1
-            r -= 1
         }
         return true
     }
-    
-    dfs(0, 0)
-    return res
 }
