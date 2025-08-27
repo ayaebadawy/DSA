@@ -131,3 +131,14 @@ func longestConsecutive(_ nums: [Int]) -> Int {
     }
     return longest
 }
+
+// https://leetcode.com/problems/jewels-and-stones/
+// 771. Jewels and Stones        Time O(s+j)
+func numJewelsInStones(_ jewels: String, _ stones: String) -> Int {
+    var jewelsCount = 0
+    let jewels = Set(jewels) // O(j) conversion
+    for s in stones { //O(s) where s is stones
+        if jewels.contains(s) { jewelsCount += 1} // O(1) lookup in set
+    }
+    return jewelsCount
+}
