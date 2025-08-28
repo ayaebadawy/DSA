@@ -63,3 +63,30 @@ func sumNumbers(_ root: TreeNodeSumNumbers?) -> Int {
     }
 }
 
+//https://leetcode.com/problems/pacific-atlantic-water-flow/
+//417. Pacific Atlantic Water Flow    Time O(n*m)
+func pacificAtlantic(_ heights: [[Int]]) -> [[Int]] {
+    var rows = heights.count, cols = heights[0].count
+    var pac = Set<[Int]>() , atl = Set<[Int]>()
+    let dir = [(0,1),(0,-1),(1,0),(-1,0)]
+    
+    for c in 0..<cols {
+        dfs(0, c, &pac, heights[0][c])
+        dfs(rows - 1, c, &atl, heights[rows-1][c])
+    }
+    for r in 0..<rows {
+        dfs(r, 0, &pac, heights[r][0])
+        dfs(r, cols - 1, &atl, heights[r][cols-1])
+    }
+    func dfs(_ r: Int, _ c: Int ,_ visit: inout Set<[Int]> ,_ preHeight: Int) {
+        if r >= rows || r < 0 || c >= cols || c < 0
+            || visit.contains([r,c]) || heights[r][c] < preHeight { return }
+        visit.insert([r,c])
+        for (dr, dc) in dir {
+            dfs(r+dr, c+dc, &visit, heights[r][c])
+        }
+    }
+    
+    return Array(pac.intersection(atl))
+}
+
