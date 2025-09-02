@@ -32,3 +32,16 @@ func lengthOfLongestSubstring(_ s: String) -> Int {
     }
     return maxWindow
 }
+
+//121. Best Time to Buy and Sell Stock
+// https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/
+func maxProfit(_ prices: [Int]) -> Int {
+    var l = 0, maxProf = 0
+    for r in 0..<prices.count {
+        while prices[l] > prices[r] { // no profit, contract window
+            l += 1
+        }
+        maxProf = max(maxProf, prices[r] - prices[l])
+    }
+    return maxProf
+}
