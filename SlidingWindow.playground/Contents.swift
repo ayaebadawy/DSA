@@ -61,3 +61,24 @@ func characterReplacement(_ s: String, _ k: Int) -> Int {
     }
     return maxLen
 }
+
+//567. Permutation in String
+//https://leetcode.com/problems/permutation-in-string/description/
+func checkInclusion(_ s1: String, _ s2: String) -> Bool {
+    if s1.count > s2.count { return false }
+    let s1 = Array(s1), s2 = Array(s2)
+    var dict1 = [Character: Int]() , dict2 = [Character: Int](), l = 0
+    for c in s1 {
+        dict1[c , default: 0] += 1
+    }
+    for r in 0..<s2.count {
+        dict2[s2[r], default: 0] += 1
+        if r >= s1.count { // when invalid, contract the window,we use if as it's a fixed window, not variable
+            dict2[s2[l], default: 0] -= 1
+            if dict2[s2[l]] == 0 { dict2[s2[l]] = nil }
+            l += 1
+        }
+        if dict1 == dict2 { return true }
+    }
+    return false
+}
