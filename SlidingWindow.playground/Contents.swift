@@ -82,3 +82,29 @@ func checkInclusion(_ s1: String, _ s2: String) -> Bool {
     }
     return false
 }
+
+//76. Minimum Window Substring
+//https://leetcode.com/problems/minimum-window-substring/description/
+func minWindow(_ s: String, _ t: String) -> String {
+        if t.isEmpty { return "" }
+        var dictT = [Character: Int](), dictS = [Character: Int]()
+        for c in t {
+            dictT[c, default: 0] += 1
+        }
+        var l = 0, have = 0, need = dictT.count, startIndex = 0, strLen = Int.max
+        let s = Array(s)
+        for r in 0..<s.count {
+            dictS[s[r], default: 0] += 1
+            if dictT[s[r]] == dictS[s[r]] { have += 1 }
+            while have == need {
+                if (r-l+1) < strLen {
+                    strLen = r-l+1
+                    startIndex = l
+                }
+                dictS[s[l], default: 0] -= 1
+                if let count = dictT[s[l]], dictS[s[l]]! < count { have -= 1 }
+                l += 1
+            }
+        }
+        return strLen == Int.max ? "" : String(s[startIndex..<startIndex+strLen])
+    }
