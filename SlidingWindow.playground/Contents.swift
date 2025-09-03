@@ -45,3 +45,19 @@ func maxProfit(_ prices: [Int]) -> Int {
     }
     return maxProf
 }
+
+//424. Longest Repeating Character Replacement
+//https://leetcode.com/problems/longest-repeating-character-replacement/description/
+func characterReplacement(_ s: String, _ k: Int) -> Int {
+    var maxLen = 0, l = 0,  dict = [Character: Int]()
+    let s = Array(s)
+    for r in 0..<s.count {
+        dict[s[r], default: 0] += 1
+        while (r-l+1) - (dict.values.max() ?? 0) > k { //while invalid, contract the window, window len - the most repeated char which results in the number of char we need to flip ans then check that againest k
+            dict[s[l], default: 0] -= 1
+            l += 1
+        }
+        maxLen = max(maxLen, r-l+1)
+    }
+    return maxLen
+}
