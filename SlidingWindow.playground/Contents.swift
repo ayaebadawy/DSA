@@ -128,3 +128,18 @@ func maxSlidingWindow(_ nums: [Int], _ k: Int) -> [Int] {
     }
     return res
 }
+
+//219. Contains Duplicate II   Time O(n)
+//https://leetcode.com/problems/contains-duplicate-ii/description/
+func containsNearbyDuplicate(_ nums: [Int], _ k: Int) -> Bool {
+    var l = 0, window = Set<Int>()
+    for r in 0..<nums.count {
+        if (r-l) > k {
+            window.remove(nums[l])
+            l += 1
+        }
+        if window.contains(nums[r]) { return true }
+        window.insert(nums[r])
+    }
+    return false
+}
