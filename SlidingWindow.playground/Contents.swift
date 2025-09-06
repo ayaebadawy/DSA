@@ -143,3 +143,20 @@ func containsNearbyDuplicate(_ nums: [Int], _ k: Int) -> Bool {
     }
     return false
 }
+
+//1343. Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold
+// https://leetcode.com/problems/number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold/description/
+func numOfSubarrays(_ arr: [Int], _ k: Int, _ threshold: Int) -> Int {
+    var l = 0, numOfSubArr = 0, sum = 0
+    for r in 0..<arr.count {
+        sum += arr[r]
+        if (r-l+1) > k {
+            sum -= arr[l]
+            l += 1
+        }
+        if (r-l+1) == k {
+            if sum / k >= threshold { numOfSubArr += 1}
+        }
+    }
+    return numOfSubArr
+}
