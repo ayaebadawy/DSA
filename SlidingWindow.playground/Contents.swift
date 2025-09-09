@@ -160,3 +160,18 @@ func numOfSubarrays(_ arr: [Int], _ k: Int, _ threshold: Int) -> Int {
     }
     return numOfSubArr
 }
+
+//209. Minimum Size Subarray Sum    Time O(n)
+//https://leetcode.com/problems/minimum-size-subarray-sum/description/
+func minSubArrayLen(_ target: Int, _ nums: [Int]) -> Int {
+    var res = Int.max, l = 0, sum = 0
+    for r in 0..<nums.count {
+        sum += nums[r]
+        while sum >= target {
+            res = min(res, r-l+1)
+            sum -= nums[l]
+            l += 1
+        }
+    }
+    return res == Int.max ? 0 : res
+}
