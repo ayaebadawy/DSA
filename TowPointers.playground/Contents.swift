@@ -33,9 +33,11 @@ func trap(_ height: [Int]) -> Int {
     var l = 0, r = height.count - 1, res = 0
     var maxL = height[l], maxR = height[r]
     while l < r {
+        // we don't need the right bounders as we need the min value between both and since we intered this condition it means that out l boundry was the smaller one
         if height[l] < height[r] {
             l += 1
             maxL = max(maxL, height[l])
+            // this will never be neg as we made sure that maxL is the heightest val between the tow earlier
             res += maxL - height[l]
         } else {
             r -= 1
@@ -64,9 +66,11 @@ moveZeroes(&grid)
 func twoSum(_ numbers: [Int], _ target: Int) -> [Int] {
     var l = 0, r = numbers.count - 1
     while l < r {
-        if numbers[l] + numbers[r] == target { return [l+1,r+1] }
+        //since it's sorted increment by shifting l
+        if numbers[l] + numbers[r] < target { l += 1}
+        //it's sorted so we need to decrement
         else if numbers[l] + numbers[r] > target { r -= 1}
-        else { l += 1}
+        else { return [l+1,r+1] }
     }
     return []
 }
@@ -124,8 +128,9 @@ func intervalIntersection(_ firstList: [[Int]], _ secondList: [[Int]]) -> [[Int]
 //26. Remove Duplicates from Sorted Array
 //https://leetcode.com/problems/remove-duplicates-from-sorted-array/description/
 func removeDuplicates(_ nums: inout [Int]) -> Int {
-    var l = 1
+    var l = 1 // l pointer represents the number that will be replaced
     for r in 1..<nums.count{
+        //we keep going untill we find and emelent that doesn't match it's previous one which means it's not a dublicate and since l in pointing at the position where we need to place our next unique element we shift them and increment l
         if nums[r] != nums[r-1] {
             nums[l] = nums[r]
             l += 1
