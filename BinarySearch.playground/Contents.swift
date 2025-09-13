@@ -14,3 +14,16 @@ func twoSum(_ numbers: [Int], _ target: Int) -> [Int] {
     }
     return []
 }
+
+// 704. Binary Search
+// https://leetcode.com/problems/binary-search/description/
+func search(_ nums: [Int], _ target: Int) -> Int {
+    var l = 0, r = nums.count - 1
+    while l <= r {
+        let  mid = l + ((r-l) / 2)
+        if nums[mid] > target { r -= 1 }
+        else if nums[mid] < target { l += 1}
+        else { return mid}
+    }
+    return -1
+}
