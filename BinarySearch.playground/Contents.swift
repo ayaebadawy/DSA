@@ -49,35 +49,36 @@ func searchMatrix(_ matrix: [[Int]], _ target: Int) -> Bool {
     return false
 }
 
-// 33. Search in Rotated Sorted Array
+// 33. Search in Rotated Sorted Array   Time O(logN)
 // https://leetcode.com/problems/search-in-rotated-sorted-array/description/
 func searchRotatedSortedArray(_ nums: [Int], _ target: Int) -> Int {
-    var left = 0
-    var right = nums.count - 1
-    
-    while left <= right {
-        let mid = (left + right) / 2
-        
-        if nums[mid] == target {
-            return mid
-        }
-        
-        // Check if the left half is sorted
-        if nums[left] <= nums[mid] {
-            if nums[left] <= target && target < nums[mid] {
-                right = mid - 1
-            } else {
-                left = mid + 1
-            }
-        }
-        // Otherwise, the right half must be sorted
-        else {
-            if nums[mid] < target && target <= nums[right] {
-                left = mid + 1
-            } else {
-                right = mid - 1
-            }
+    var l = 0, r = nums.count - 1
+    while l <= r {
+        let m = (l+r) / 2
+        if nums[m] == target { return m }
+        if nums[l] <= nums[m] { // left sorted part
+            if nums[l] <= target && target < nums[m] { r = m - 1 }
+            else { l = m + 1 }
+        } else {
+            if nums[r] >= target && target > nums[m] { l = m + 1 }
+            else { r = m - 1 }
         }
     }
     return -1
+}
+
+//153. Find Minimum in Rotated Sorted Array
+//https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/
+func findMin(_ nums: [Int]) -> Int {
+    var l = 0, r = nums.count - 1, res = nums[l]
+    while l <= r {
+        if nums[l] < nums[r] { return min(res, nums[l]) } // it's sorted
+        else {
+            let m = (l + r) / 2
+            res = min(res, nums[m])
+            if nums[m] >= nums[l] { l = m + 1 }
+            else { r = m - 1 }
+        }
+    }
+    return res
 }
