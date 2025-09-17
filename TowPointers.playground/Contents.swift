@@ -151,3 +151,19 @@ func isPerfectSquare(_ num: Int) -> Bool {
     }
     return false
 }
+
+//69. Sqrt(x)
+//https://leetcode.com/problems/sqrtx/description/
+func mySqrt(_ x: Int) -> Int {
+    var l = 1, r = x
+    while l <= r {
+        let m = (l+r) / 2, m2 = m * m
+        if m2 == x { return m }
+        else if m2 > x { r = m - 1 }
+        else { l = m + 1 }
+    }
+    //r is the last value where m*m <= x.
+    //l has gone past the square root.So,
+    //returning r gives you the floor of the square root of x.
+    return r
+}
