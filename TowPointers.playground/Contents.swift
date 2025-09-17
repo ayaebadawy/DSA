@@ -138,3 +138,16 @@ func removeDuplicates(_ nums: inout [Int]) -> Int {
     }
     return l
 }
+
+//367. Valid Perfect Square
+//https://leetcode.com/problems/valid-perfect-square/description/
+func isPerfectSquare(_ num: Int) -> Bool {
+    var l = 1, r = num
+    while l <= r {
+        let m = (l+r) / 2, m2 = m * m
+        if m2 == num { return true }
+        else if m2 > num { r = m - 1 }
+        else { l = m + 1 }
+    }
+    return false
+}
