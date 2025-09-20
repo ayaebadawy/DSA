@@ -84,3 +84,38 @@ func findMin(_ nums: [Int]) -> Int {
     }
     return res
 }
+
+//4. Median of Two Sorted Arrays    Time O(log(min(m,n)))
+//https://leetcode.com/problems/median-of-two-sorted-arrays/
+func findMedianSortedArrays(_ nums1: [Int], _ nums2: [Int]) -> Double {
+    var arr1 = nums1, arr2 = nums2
+    if arr1.count > arr2.count {
+        arr1 = nums2
+        arr2 = nums1
+    }
+    
+    let total = arr1.count + arr2.count, half = total / 2
+    var l = 0,  r = arr1.count
+    
+    while true {
+        let i = (l + r) / 2
+        let j = half - i
+        
+        let arr1Left = i > 0 ? Double(arr1[i - 1]) : -Double.infinity
+        let arr1Right = i < arr1.count ? Double(arr1[i]) : Double.infinity
+        let arr2Left = j > 0 ? Double(arr2[j - 1]) : -Double.infinity
+        let arr2Right = j < arr2.count ? Double(arr2[j]) : Double.infinity
+        
+        if arr1Left <= arr2Right && arr2Left <= arr1Right {
+            if total % 2 == 1 {
+                return min(arr1Right, arr2Right)
+            } else {
+                return (max(arr1Left, arr2Left) + min(arr2Right, arr1Right)) / 2.0
+            }
+        } else if arr1Left > arr2Right {
+            r = i - 1
+        } else {
+            l = i + 1
+        }
+    }
+}
