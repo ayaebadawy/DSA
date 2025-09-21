@@ -123,7 +123,7 @@ func findMedianSortedArrays(_ nums1: [Int], _ nums2: [Int]) -> Double {
 /*
  arr1: [1 | 3]
  arr2: [2, 4 | 5, 6]
-
+ 
  arr1Left = 1
  arr1Right = 3
  arr2Left = 4
@@ -139,7 +139,7 @@ func findMedianSortedArrays(_ nums1: [Int], _ nums2: [Int]) -> Double {
  
  arr1: [1, 3 | ]
  arr2: [2 | 4, 5, 6]
-
+ 
  arr1Left = 3
  arr1Right = ∞ (out of bounds)
  arr2Left = 2
@@ -154,9 +154,9 @@ func findMedianSortedArrays(_ nums1: [Int], _ nums2: [Int]) -> Double {
 //981. Time Based Key-Value Store     Time O(logn)
 //https://leetcode.com/problems/time-based-key-value-store/description/
 class TimeMap {
-
+    
     var dict: [String: [(String, Int)] ]
-
+    
     init() {
         dict = [:]
     }
@@ -182,4 +182,22 @@ class TimeMap {
     }
 }
 
-
+//875. Koko Eating Bananas
+//https://leetcode.com/problems/koko-eating-bananas/
+func minEatingSpeed(_ piles: [Int], _ h: Int) -> Int {
+    var l = 1, r = piles.max()!, minK = r
+    while l <= r {
+        let eatingSpeed = (l+r) / 2
+        let timeTakenToEatAllPiles = piles
+            .map{ Int( ceil( Double($0) / Double(eatingSpeed) )) }.reduce(0,+)
+        //time taken can also be calculated with reduce directly
+        // piles.reduce(0) { $0 + Int(ceil( Double($1) / Double(eatingSpeed) ) ) }
+        if timeTakenToEatAllPiles <= h {
+            minK = min(minK, eatingSpeed)
+            r = eatingSpeed - 1
+        } else {
+            l = eatingSpeed + 1
+        }
+    }
+    return minK
+}
