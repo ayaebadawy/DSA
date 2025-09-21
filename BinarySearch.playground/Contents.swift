@@ -119,3 +119,67 @@ func findMedianSortedArrays(_ nums1: [Int], _ nums2: [Int]) -> Double {
         }
     }
 }
+
+/*
+ arr1: [1 | 3]
+ arr2: [2, 4 | 5, 6]
+
+ arr1Left = 1
+ arr1Right = 3
+ arr2Left = 4
+ arr2Right = 5
+ 
+ Check partition validity:
+ arr1Left <= arr2Right: 1 <= 5 ✅
+ arr2Left <= arr1Right: 4 <= 3 ❌
+ 
+ Second binary search iteration
+ i = (2 + 2) / 2 = 2
+ j = 3 - 2 = 1
+ 
+ arr1: [1, 3 | ]
+ arr2: [2 | 4, 5, 6]
+
+ arr1Left = 3
+ arr1Right = ∞ (out of bounds)
+ arr2Left = 2
+ arr2Right = 4
+ Check partition validity:
+ arr1Left <= arr2Right: 3 <= 4 ✅
+ arr2Left <= arr1Right: 2 <= ∞ ✅
+ 
+ ✅ Valid partition found.
+ */
+
+//981. Time Based Key-Value Store     Time O(logn)
+//https://leetcode.com/problems/time-based-key-value-store/description/
+class TimeMap {
+
+    var dict: [String: [(String, Int)] ]
+
+    init() {
+        dict = [:]
+    }
+    
+    func set(_ key: String, _ value: String, _ timestamp: Int) {
+        dict[key, default: []].append((value, timestamp))
+    }
+    
+    func get(_ key: String, _ timestamp: Int) -> String {
+        var res = ""
+        guard let values = dict[key] else { return "" }
+        var l = 0, r = values.count - 1
+        while l <= r {
+            let m = (l+r) / 2
+            if values[m].1 <= timestamp {
+                res = values[m].0 // we update the res since we found a valid value, checking if the == will not work here as we may not find an exact match and we need to update the res to the lesser timestamp we found and then update the pointers
+                l = m + 1
+            } else {
+                r = m - 1
+            }
+        }
+        return res
+    }
+}
+
+
