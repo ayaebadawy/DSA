@@ -87,11 +87,22 @@ func mergeTwoLists(_ list1: ListNode?, _ list2: ListNode?) -> ListNode? {
 //Floyd's The Tortoise and the Hare Algorithm
 //https://leetcode.com/problems/linked-list-cycle/description/
 func hasCycle(_ head: ListNode?) -> Bool {
-    var fast: ListNode? = head, slow: ListNode? = head
+    var fast = head, slow = head
     while fast != nil && fast?.next != nil {
         slow = slow?.next
         fast = fast?.next?.next
         if slow === fast { return true }
     }
     return false
+}
+
+//876. Middle of the Linked List      Time O(n)
+//https://leetcode.com/problems/middle-of-the-linked-list/description/
+func middleNode(_ head: ListNode?) -> ListNode? {
+    var fast = head, slow = head
+    while fast != nil && fast?.next != nil {
+        slow = slow?.next
+        fast = fast?.next?.next
+    }
+    return slow
 }
