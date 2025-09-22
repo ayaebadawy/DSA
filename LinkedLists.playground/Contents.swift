@@ -82,3 +82,16 @@ func mergeTwoLists(_ list1: ListNode?, _ list2: ListNode?) -> ListNode? {
     tail?.next = list1 ?? list2
     return head?.next
 }
+
+//141. Linked List Cycle      Time O(n)
+//Floyd's The Tortoise and the Hare Algorithm
+//https://leetcode.com/problems/linked-list-cycle/description/
+func hasCycle(_ head: ListNode?) -> Bool {
+    var fast: ListNode? = head, slow: ListNode? = head
+    while fast != nil && fast?.next != nil {
+        slow = slow?.next
+        fast = fast?.next?.next
+        if slow === fast { return true }
+    }
+    return false
+}
