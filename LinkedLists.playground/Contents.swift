@@ -106,3 +106,22 @@ func middleNode(_ head: ListNode?) -> ListNode? {
     }
     return slow
 }
+
+//142. Linked List Cycle II        Time O(n)
+//https://leetcode.com/problems/linked-list-cycle-ii/
+func detectCycle(_ head: ListNode?) -> ListNode? {
+    var fast = head, slow = head
+    while fast != nil && fast?.next != nil {
+        slow = slow?.next
+        fast = fast?.next?.next
+        if fast === slow { break }
+    }
+    if fast == nil || fast?.next == nil { return nil }
+    var slow2 = head
+    while slow !== slow2 {
+        slow = slow?.next
+        slow2 = slow2?.next
+    }
+    return slow
+}
+
