@@ -85,6 +85,7 @@ func mergeTwoLists(_ list1: ListNode?, _ list2: ListNode?) -> ListNode? {
 
 //141. Linked List Cycle      Time O(n)
 //Floyd's The Tortoise and the Hare Algorithm
+// fast and slow pointers must meet the fast pointer will catch up to the slow pointer as this moves by one and this moves by tow so each iteration the fast pointer closes the distance by 1
 //https://leetcode.com/problems/linked-list-cycle/description/
 func hasCycle(_ head: ListNode?) -> Bool {
     var fast = head, slow = head
@@ -108,6 +109,10 @@ func middleNode(_ head: ListNode?) -> ListNode? {
 }
 
 //142. Linked List Cycle II        Time O(n)
+// the 2 slow pointers are garenteed to meet at the head of the cycle, after finding the cycle, proved mathimatically, the distance from the slow pointer inside the cycle to the head of the cycle and the distance from the head to the list to the head of the cycle are equal
+// p = x
+//2p(c-x) = p+c+c-x
+//p-x = 0 aka p = x
 //https://leetcode.com/problems/linked-list-cycle-ii/
 func detectCycle(_ head: ListNode?) -> ListNode? {
     var fast = head, slow = head
