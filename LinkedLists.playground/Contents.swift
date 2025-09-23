@@ -130,3 +130,26 @@ func detectCycle(_ head: ListNode?) -> ListNode? {
     return slow
 }
 
+//2130. Maximum Twin Sum of a Linked List     Time O(n)
+//https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/description/
+//we use fast and slow pointer to deremine the midway point of the linked list,
+//while doing so, we reverse the first half of the linked list,
+//we do so by keeping track of a prev pointer, we need to shift slow to slow.next but we also need to break slow.next and set it to pre which is the reverse op, so we save slow.next to a temp var then we can safly break that and set it to prev, then we need to update the pointer prev is moving to slow and slow is moving to slow. next
+//after that we just loop over and sum the vals and get the max.
+func pairSum(_ head: ListNode?) -> Int {
+    var pre: ListNode? = nil, fast = head, slow = head, res = 0
+    while fast != nil && fast?.next != nil {
+        fast = fast?.next?.next
+        var temp = slow?.next
+        slow?.next = pre
+        pre = slow
+        slow = temp
+    }
+    
+    while slow != nil && pre != nil {
+        res = max(res, slow!.val + pre!.val)
+        slow = slow?.next
+        pre = pre?.next
+    }
+    return res
+}
