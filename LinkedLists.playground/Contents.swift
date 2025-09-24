@@ -171,3 +171,52 @@ func findDuplicate(_ nums: [Int]) -> Int {
         if slow == slow2 { return slow}
     }
 }
+
+//Double linked list for moving forward and backwords
+//1472. Design Browser History      Time O(n) moving forword and back, Time O(1) visiting new page
+//https://leetcode.com/problems/design-browser-history/description/
+class DListNode {
+
+    var val: String
+    var pre: DListNode?
+    var next: DListNode?
+
+    init(_ val: String, _ pre: DListNode? = nil, _ next: DListNode? = nil) {
+        self.val = val
+        self.pre = pre
+        self.next = next
+    }
+}
+
+class BrowserHistory {
+
+    var cur: DListNode?
+
+    init(_ homepage: String) {
+        cur = DListNode(homepage)
+    }
+    
+    func visit(_ url: String) {
+        let node = DListNode(url, cur)
+        cur?.next = node
+        cur = cur?.next
+    }
+    
+    func back(_ steps: Int) -> String {
+        var steps = steps
+        while cur?.pre != nil && steps > 0 {
+            cur = cur?.pre
+            steps -= 1
+        }
+        return cur!.val
+    }
+    
+    func forward(_ steps: Int) -> String {
+        var steps = steps
+        while cur?.next != nil && steps > 0 {
+            cur = cur?.next
+            steps -= 1
+        }
+        return cur!.val
+    }
+}
