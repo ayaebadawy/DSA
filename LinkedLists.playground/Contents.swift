@@ -220,3 +220,82 @@ class BrowserHistory {
         return cur!.val
     }
 }
+
+//707. Design Linked List      Time O(1) -> init, addAtHead, addAtTail, Time O(n) -> get, addAtIndex, deleteAtIndex
+//https://leetcode.com/problems/design-linked-list/description/
+class IListNode {
+
+    var val: Int
+    var prev: IListNode?
+    var next: IListNode?
+
+    init(_ val: Int, _ prev: IListNode? = nil, _ next: IListNode? = nil ) {
+        self.val = val
+        self.prev = prev
+        self.next = next
+    }
+}
+
+class MyLinkedList {
+
+    var left = IListNode(0), right = IListNode(0)
+
+    init() {
+        left.next = right
+        right.prev = left
+    }
+    
+    func get(_ index: Int) -> Int {
+        var index = index, cur = left.next
+        while cur != nil && index > 0 {
+            cur = cur?.next
+            index -= 1
+        }
+        if cur != nil && cur !== right && index == 0 { return cur!.val }
+        else { return -1 }
+    }
+    
+    func addAtHead(_ val: Int) {
+        var node = IListNode(val), cur = left.next
+        left.next = node
+        cur?.prev = node
+        node.prev = left
+        node.next = cur
+    }
+    
+    func addAtTail(_ val: Int) {
+        var node = IListNode(val), cur = right.prev
+        right.prev = node
+        cur?.next = node
+        node.next = right
+        node.prev = cur
+    }
+    
+    func addAtIndex(_ index: Int, _ val: Int) {
+        var cur = left.next, index = index
+        while cur != nil && index > 0 {
+            index -= 1
+            cur = cur?.next
+        }
+        if cur != nil && index == 0 {
+            var node = IListNode(val), prev = cur?.prev, next = cur
+            prev?.next = node
+            next?.prev = node
+            node.next = next
+            node.prev = prev
+        }
+    }
+    
+    func deleteAtIndex(_ index: Int) {
+        var index = index, cur = left.next
+        while cur != nil && index > 0 {
+            index -= 1
+            cur = cur?.next
+        }
+        if cur != nil && cur !== right && index == 0 {
+            var next = cur?.next, prev = cur?.prev
+            next?.prev = prev
+            prev?.next = next
+        }
+    }
+}
