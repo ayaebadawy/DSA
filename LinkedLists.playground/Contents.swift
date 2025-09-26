@@ -176,11 +176,11 @@ func findDuplicate(_ nums: [Int]) -> Int {
 //1472. Design Browser History      Time O(n) moving forword and back, Time O(1) visiting new page
 //https://leetcode.com/problems/design-browser-history/description/
 class DListNode {
-
+    
     var val: String
     var pre: DListNode?
     var next: DListNode?
-
+    
     init(_ val: String, _ pre: DListNode? = nil, _ next: DListNode? = nil) {
         self.val = val
         self.pre = pre
@@ -189,9 +189,9 @@ class DListNode {
 }
 
 class BrowserHistory {
-
+    
     var cur: DListNode?
-
+    
     init(_ homepage: String) {
         cur = DListNode(homepage)
     }
@@ -224,11 +224,11 @@ class BrowserHistory {
 //707. Design Linked List      Time O(1) -> init, addAtHead, addAtTail, Time O(n) -> get, addAtIndex, deleteAtIndex
 //https://leetcode.com/problems/design-linked-list/description/
 class IListNode {
-
+    
     var val: Int
     var prev: IListNode?
     var next: IListNode?
-
+    
     init(_ val: Int, _ prev: IListNode? = nil, _ next: IListNode? = nil ) {
         self.val = val
         self.prev = prev
@@ -237,9 +237,9 @@ class IListNode {
 }
 
 class MyLinkedList {
-
+    
     var left = IListNode(0), right = IListNode(0)
-
+    
     init() {
         left.next = right
         right.prev = left
@@ -298,4 +298,21 @@ class MyLinkedList {
             prev?.next = next
         }
     }
+}
+
+//19. Remove Nth Node From End of List
+//https://leetcode.com/problems/remove-nth-node-from-end-of-list/description/
+func removeNthFromEnd(_ head: ListNode?, _ n: Int) -> ListNode? {
+    var dummy: ListNode? = ListNode(0, head)
+    var slow = dummy, fast = head, shift = n
+    while shift > 0 && fast != nil {
+        fast = fast?.next
+        shift -= 1
+    }
+    while fast != nil {
+        fast = fast?.next
+        slow = slow?.next
+    }
+    slow?.next = slow?.next?.next
+    return dummy?.next
 }
