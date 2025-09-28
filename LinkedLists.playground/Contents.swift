@@ -348,3 +348,21 @@ func reorderList(_ head: ListNode?) {
         second = temp2
     }
 }
+
+//2. Add Two Numbers
+//https://leetcode.com/problems/add-two-numbers/description/
+func addTwoNumbers(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+    var l1 = l1, l2 = l2, dummy: ListNode? = ListNode(0), cur = dummy
+    var carry = 0
+    
+    while l1 != nil || l2 != nil || carry > 0 {
+        let val = (l1?.val ?? 0) + (l2?.val ?? 0) + carry
+        let digit = val % 10
+        carry = val / 10
+        cur?.next = ListNode(digit)
+        l1 = l1?.next
+        l2 = l2?.next
+        cur = cur?.next
+    }
+    return dummy?.next
+}
