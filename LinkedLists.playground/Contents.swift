@@ -304,15 +304,47 @@ class MyLinkedList {
 //https://leetcode.com/problems/remove-nth-node-from-end-of-list/description/
 func removeNthFromEnd(_ head: ListNode?, _ n: Int) -> ListNode? {
     var dummy: ListNode? = ListNode(0, head)
-    var slow = dummy, fast = head, shift = n
-    while shift > 0 && fast != nil {
-        fast = fast?.next
+    var left = dummy, right = head, shift = n // left and right pointers
+    while shift > 0 && right != nil { // keep shifting the right pointer untill n = 0, which means the distance between left and right is exactly = n
+        right = right?.next
         shift -= 1
     }
-    while fast != nil {
-        fast = fast?.next
-        slow = slow?.next
+    // keep shifting both pointers untill right is at the end, which means that left is at the node before the one we need to delete gived that we maintained the distance between them as n
+    
+    while right != nil {
+        right = right?.next
+        left = left?.next
     }
-    slow?.next = slow?.next?.next
+    left?.next = left?.next?.next
     return dummy?.next
+}
+
+//143. Reorder List
+//https://leetcode.com/problems/reorder-list/description/
+func reorderList(_ head: ListNode?) {
+    var slow = head, fast = head?.next
+    // get the half way point of the list
+    while fast != nil && fast?.next != nil {
+        slow = slow?.next
+        fast = fast?.next?.next
+    }
+    var second = slow?.next, pre: ListNode? = nil
+    slow?.next = pre // break the link between 2 lists VIP
+    //reverse the list
+    while second != nil {
+        let temp = second?.next
+        second?.next = pre
+        pre = second
+        second = temp
+    }
+    var first = head
+    second = pre
+    //merge 2 lists
+    while second != nil {
+        let temp1 = first?.next, temp2 = second?.next
+        first?.next = second
+        second?.next = temp1
+        first = temp1
+        second = temp2
+    }
 }
