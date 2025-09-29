@@ -28,3 +28,17 @@ func romanToInt(_ s: String) -> Int { //Time O(n), Space O(n)
 romanToInt("III")
 romanToInt("LVIII")
 romanToInt("MCMXCIV")
+
+//3019. Number of Changing Keys
+//https://leetcode.com/problems/number-of-changing-keys/description/
+func countKeyChanges(_ s: String) -> Int {
+    var luc = s.prefix(1).lowercased(), changes = 0
+    for c in s {
+        if c.lowercased() != luc {
+            changes += 1
+            luc = c.lowercased()
+        }
+    }
+    return changes
+}
+
