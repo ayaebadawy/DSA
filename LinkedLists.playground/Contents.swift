@@ -366,3 +366,36 @@ func addTwoNumbers(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
     }
     return dummy?.next
 }
+
+//23. Merge k Sorted Lists        Time O(nlogk)
+//https://leetcode.com/problems/merge-k-sorted-lists/description/
+func mergeKLists(_ lists: [ListNode?]) -> ListNode? {
+    if lists.isEmpty || lists.count == 0 { return nil }
+    var lists = lists
+    while lists.count > 1 {
+        var merged: [ListNode?] = []
+        for i in stride(from: 0, to: lists.count, by: 2) {
+            merged.append(
+                mergeTowLists(lists[i], i+1 < lists.count ? lists[i+1] : nil )
+            )
+        }
+        lists = merged
+    }
+    return lists[0]
+    
+    func mergeTowLists(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+        var dummy: ListNode? = ListNode(0), tail = dummy, l1 = l1, l2 = l2
+        while l1 != nil && l2 != nil {
+            if l1!.val < l2!.val {
+                tail?.next = l1
+                l1 = l1?.next
+            } else {
+                tail?.next = l2
+                l2 = l2?.next
+            }
+            tail = tail?.next
+        }
+        tail?.next = l1 ?? l2
+        return dummy?.next
+    }
+}
