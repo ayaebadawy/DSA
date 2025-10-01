@@ -36,3 +36,17 @@ func searchBSTRec(_ root: TreeNode?, _ val: Int) -> TreeNode? {
         return root
     }
 }
+
+//701. Insert into a Binary Search Tree
+//https://leetcode.com/problems/insert-into-a-binary-search-tree/description/
+func insertIntoBST(_ root: TreeNode?, _ val: Int) -> TreeNode? {
+    guard let root = root else {
+        return TreeNode(val)
+    }
+    if root.val > val {
+        root.left = insertIntoBST(root.left, val)
+    } else {
+        root.right = insertIntoBST(root.right, val)
+    }
+    return root
+}
