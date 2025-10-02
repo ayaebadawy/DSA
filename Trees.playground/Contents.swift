@@ -80,4 +80,19 @@ func deleteNode(_ root: TreeNode?, _ key: Int) -> TreeNode? {
     }
 }
 
+//94. Binary Tree Inorder Traversal
+//https://leetcode.com/problems/binary-tree-inorder-traversal/description/
+func inorderTraversal(_ root: TreeNode?) -> [Int] {
+    var res: [Int] = []
+    inorder(root)
+    return res
+    func inorder(_ root: TreeNode?) {
+        if root == nil { return }
+        inorder(root?.left)
+        res.append(root!.val)
+        inorder(root?.right)
+    }
+}
+
+
 
