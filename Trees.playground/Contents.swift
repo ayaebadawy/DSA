@@ -50,3 +50,34 @@ func insertIntoBST(_ root: TreeNode?, _ val: Int) -> TreeNode? {
     }
     return root
 }
+
+//450. Delete Node in a BST
+//https://leetcode.com/problems/delete-node-in-a-bst/description/
+func deleteNode(_ root: TreeNode?, _ key: Int) -> TreeNode? {
+    guard let root = root else { return nil }
+    if key > root.val { //go right
+        root.right = deleteNode(root.right, key)
+    } else if key < root.val { // go left
+        root.left = deleteNode(root.left, key)
+    } else { // found
+        if root.right == nil { return root.left }
+        else if root.left == nil { return root.right }
+        else {
+            guard let min = findMin(root.right) else {return nil } // find min of the right subtree
+            root.val = min.val //repplace that with min
+            root.right = deleteNode(root.right, min.val) // delete said min from right subtree
+        }
+    }
+    
+    return root
+    
+    func findMin(_ root: TreeNode?) -> TreeNode? {
+        guard var cur = root else { return nil }
+        while cur != nil && cur.left != nil {
+            cur = cur.left!
+        }
+        return cur
+    }
+}
+
+
