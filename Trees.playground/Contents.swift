@@ -94,5 +94,16 @@ func inorderTraversal(_ root: TreeNode?) -> [Int] {
     }
 }
 
-
-
+//230. Kth Smallest Element in a BST
+//https://leetcode.com/problems/kth-smallest-element-in-a-bst/description/
+func kthSmallest(_ root: TreeNode?, _ k: Int) -> Int {
+    var res: [Int] = []
+    inorder(root)
+    return res[k-1]
+    func inorder(_ root: TreeNode?) {
+        guard let root = root else { return }
+        inorder(root.left)
+        res.append(root.val)
+        inorder(root.right)
+    }
+}
