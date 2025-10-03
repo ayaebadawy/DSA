@@ -107,3 +107,15 @@ func kthSmallest(_ root: TreeNode?, _ k: Int) -> Int {
         inorder(root.right)
     }
 }
+
+//226. Invert Binary Tree
+//https://leetcode.com/problems/invert-binary-tree/description/
+func invertTree(_ root: TreeNode?) -> TreeNode? {
+    guard let root = root else { return nil }
+    let temp = root.right
+    root.right = root.left
+    root.left = temp
+    invertTree(root.right)
+    invertTree(root.left)
+    return root
+}
