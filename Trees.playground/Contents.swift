@@ -119,3 +119,10 @@ func invertTree(_ root: TreeNode?) -> TreeNode? {
     invertTree(root.left)
     return root
 }
+
+//104. Maximum Depth of Binary Tree
+//https://leetcode.com/problems/maximum-depth-of-binary-tree/description/
+func maxDepth(_ root: TreeNode?) -> Int {
+    guard let root = root else { return 0 }
+    return 1 + max(maxDepth(root.right), maxDepth(root.left))
+}
