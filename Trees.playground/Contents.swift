@@ -126,3 +126,20 @@ func maxDepth(_ root: TreeNode?) -> Int {
     guard let root = root else { return 0 }
     return 1 + max(maxDepth(root.right), maxDepth(root.left))
 }
+
+//105. Construct Binary Tree from Preorder and Inorder Traversal
+//https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/description/
+func buildTree(_ preorder: [Int], _ inorder: [Int]) -> TreeNode? {
+    //first val in preorder is always the root
+    //next val is the root of the left subtree
+    if preorder.isEmpty || inorder.isEmpty { return nil } //base case
+    let root = TreeNode(preorder[0]) //first val is always the root
+    guard let mid = inorder.firstIndex(of: preorder[0]) else { return nil }
+    // partition the arr to get left and write subtrees
+    
+    root.left = buildTree(Array(preorder[1..<mid+1]), //Array(preorder[1...0]) invalid! as [1...mid] but 1..<mid+1 is valid 1..<1
+                          Array(inorder[0..<mid]))
+    root.right = buildTree(Array(preorder[mid+1..<preorder.count]),
+                           Array(inorder[mid+1..<inorder.count]))
+    return root
+}
