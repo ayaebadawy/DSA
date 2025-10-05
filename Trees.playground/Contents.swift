@@ -143,3 +143,23 @@ func buildTree(_ preorder: [Int], _ inorder: [Int]) -> TreeNode? {
                            Array(inorder[mid+1..<inorder.count]))
     return root
 }
+
+//102. Binary Tree Level Order Traversal
+//https://leetcode.com/problems/binary-tree-level-order-traversal/
+func levelOrder(_ root: TreeNode?) -> [[Int]] {
+    var res = [[Int]](), q = [TreeNode]()
+    guard let root = root else { return [] }
+    q.append(root)
+    
+    while !q.isEmpty {
+        var temp = [Int]()
+        for i in 0..<q.count {
+            let cur = q.removeFirst()
+            temp.append(cur.val)
+            if let left = cur.left { q.append(left) }
+            if let right = cur.right { q.append(right) }
+        }
+        res.append(temp)
+    }
+    return res
+}
