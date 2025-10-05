@@ -94,6 +94,20 @@ func inorderTraversal(_ root: TreeNode?) -> [Int] {
     }
 }
 
+//144. Binary Tree Preorder Traversal
+//https://leetcode.com/problems/binary-tree-preorder-traversal/description/
+func preorderTraversal(_ root: TreeNode?) -> [Int] {
+    var res = [Int]()
+    preorder(root)
+    func preorder(_ root: TreeNode?) {
+        guard let root = root else { return }
+        res.append(root.val)
+        preorder(root.left)
+        preorder(root.right)
+    }
+    return res
+}
+
 //230. Kth Smallest Element in a BST
 //https://leetcode.com/problems/kth-smallest-element-in-a-bst/description/
 func kthSmallest(_ root: TreeNode?, _ k: Int) -> Int {
