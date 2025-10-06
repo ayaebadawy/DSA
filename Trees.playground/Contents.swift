@@ -211,3 +211,130 @@ func rightSideView(_ root: TreeNode?) -> [Int] {
     }
     return res
 }
+
+//173. Binary Search Tree Iterator
+//https://leetcode.com/problems/binary-search-tree-iterator/description/
+//Iterative DFS using a stack
+class BSTIterator {
+    var stack: [TreeNode]
+    init(_ root: TreeNode?) {
+        stack = []
+        var cur = root
+        while cur != nil {
+            stack.append(cur!)
+            cur = cur!.left
+        }
+    }
+    
+    func next() -> Int {
+        let node = stack.removeLast()
+        var cur = node.right
+        while cur != nil {
+            stack.append(cur!)
+            cur = cur!.left
+        }
+        return node.val
+    }
+    
+    func hasNext() -> Bool {
+        return !stack.isEmpty
+    }
+}
+
+//543. Diameter of Binary Tree
+//https://leetcode.com/problems/diameter-of-binary-tree/description/
+func diameterOfBinaryTree(_ root: TreeNode?) -> Int {
+    var maxD = 0
+    dfs(root)
+    return maxD
+    func dfs(_ root: TreeNode?) -> Int {
+        guard let root = root else { return 0 }
+        let leftHeight = dfs(root.left)
+        let rightHeight = dfs(root.right)
+        maxD = max(maxD, leftHeight + rightHeight)
+        return 1 + max(leftHeight, rightHeight)
+    }
+}
+
+//110. Balanced Binary Tree
+//https://leetcode.com/problems/balanced-binary-tree/description/
+func isBalanced(_ root: TreeNode?) -> Bool {
+    return dfs(root).0
+    func dfs(_ root: TreeNode?) -> (Bool, Int) { //(balanced?, height)
+        guard let root = root else { return (true, 0) } //if empty cosider balanced
+        let left = dfs(root.left)
+        let right = dfs(root.right)
+        let height = 1 + max(left.1, right.1)
+        let balanced = left.0 && right.0 && abs(left.1 - right.1) < 2
+        return (balanced, height)
+    }
+}
+
+//572. Subtree of Another Tree
+//https://leetcode.com/problems/subtree-of-another-tree/description/
+func isSubtree(_ root: TreeNode?, _ subRoot: TreeNode?) -> Bool {
+    guard let root = root else { return false }
+    if subRoot == nil || isSameTree(root, subRoot) { return true }
+    return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot)
+}
+
+func isSameTree(_ p: TreeNode?,_ q: TreeNode?) -> Bool {
+    if p == nil && q == nil { return true }
+    if let p = p, let q = q {
+        return p.val == q.val &&
+        isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
+    }
+    return false
+}
+
+//98. Validate Binary Search Tree
+//https://leetcode.com/problems/validate-binary-search-tree/description/
+func isValidBST(_ root: TreeNode?) -> Bool {
+    return isBST(root)
+    func isBST(_ root: TreeNode?,
+               _ min: Int = Int.min, _ max: Int = Int.max) -> Bool {
+        guard let root = root else { return true }
+        if root.val < max && root.val > min {
+            return isBST(root.left, min, root.val) &&
+            isBST(root.right, root.val, max)
+        } else { return false }
+    }
+}
+
+//1448. Count Good Nodes in Binary Tree
+//https://leetcode.com/problems/count-good-nodes-in-binary-tree/
+func goodNodes(_ root: TreeNode?) -> Int {
+    guard let root = root else { return 0 }
+    return posrOrder(root, root.val)
+    func posrOrder(_ root: TreeNode?, _ maxVal: Int) -> Int {
+        //max val reached so far
+        guard let root = root else { return 0 }
+        var res = root.val >= maxVal ? 1 : 0
+        var maxVal = max(maxVal, root.val)
+        res += posrOrder(root.left, maxVal)
+        res += posrOrder(root.right, maxVal)
+        return res
+    }
+}
+
+//124. Binary Tree Maximum Path Sum
+//https://leetcode.com/problems/binary-tree-maximum-path-sum/description/
+func maxPathSum(_ root: TreeNode?) -> Int {
+    guard let root = root else { return 0 }
+    var maxSum = root.val
+    dfs(root)
+    return maxSum
+    func dfs(_ root: TreeNode?) -> Int {
+        guard let root = root else { return 0 }
+        let leftSum = dfs(root.left) //get the left tree sum
+        let rightSum = dfs(root.right) //get the right tree sum
+        // up to this point with the path split like in 15, 20, 7
+        // we get the pathsum up to this point and update our maxSum
+        // there's a possibility that the sum is -neg and we do not want to add -neg vals to the sum so we get the max between itself and 0
+        let pathSum = root.val + max(leftSum, 0) + max(rightSum, 0)
+        maxSum = max(maxSum, pathSum)
+        //when we return we need the max this far without split like in 15, 20, -10
+        // fo that we get the max of the left and right and the current root val
+        return root.val + max(max(leftSum, 0), max(rightSum, 0))
+    }
+}
