@@ -197,17 +197,17 @@ func levelOrder(_ root: TreeNode?) -> [[Int]] {
 //in our for loop, we update the rightside with the left node first then the right so by the end of the for loop we have the right most node in rightside
 //https://leetcode.com/problems/binary-tree-right-side-view/
 func rightSideView(_ root: TreeNode?) -> [Int] {
-    var res = [Int](), q = [TreeNode]()
+    var q = [TreeNode](), res = [Int]()
     guard let root = root else { return [] }
     q.append(root)
+    res.append(root.val)
     while !q.isEmpty {
-        var rightSide: TreeNode?
         for _ in 0..<q.count {
-            rightSide = q.removeFirst() //the right most element of the level
-            if let left = rightSide?.left { q.append(left) }
-            if let right = rightSide?.right { q.append(right) }
+            let node = q.removeFirst()
+            if let left = node.left { q.append(left) }
+            if let right = node.right { q.append(right) }
         }
-        if let val = rightSide?.val { res.append(val) }
+        if let last = q.last { res.append(last.val) }
     }
     return res
 }
