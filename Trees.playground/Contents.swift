@@ -125,7 +125,7 @@ func postorderTraversal(_ root: TreeNode?) -> [Int] {
 //230. Kth Smallest Element in a BST
 //https://leetcode.com/problems/kth-smallest-element-in-a-bst/description/
 func kthSmallest(_ root: TreeNode?, _ k: Int) -> Int {
-    var res: [Int] = []
+    var res = [Int]()
     inorder(root)
     return res[k-1]
     func inorder(_ root: TreeNode?) {
@@ -336,5 +336,39 @@ func maxPathSum(_ root: TreeNode?) -> Int {
         //when we return we need the max this far without split like in 15, 20, -10
         // fo that we get the max of the left and right and the current root val
         return root.val + max(max(leftSum, 0), max(rightSum, 0))
+    }
+}
+
+//297. Serialize and Deserialize Binary Tree     Time O(n)
+//https://leetcode.com/problems/serialize-and-deserialize-binary-tree/description/
+func serialize(_ root: TreeNode?) -> String {
+    var res = [String]()
+    preorder(root)
+    return res.joined(separator: ",")
+    func preorder(_ root: TreeNode?) {
+        guard let root = root else {
+            res.append("N")
+            return
+        }
+        res.append(String(root.val))
+        preorder(root.left)
+        preorder(root.right)
+    }
+}
+
+func deserialize(_ data: String) -> TreeNode? {
+    let vals = data.split(separator: ",")
+    var i = 0
+    return dfs()
+    func dfs() -> TreeNode? {
+        if vals[i] == "N" {
+            i += 1
+            return nil
+        }
+        let node = TreeNode(Int(vals[i])!)
+        i += 1
+        node.left = dfs()
+        node.right = dfs()
+        return node
     }
 }
