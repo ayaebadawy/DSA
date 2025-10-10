@@ -72,11 +72,11 @@ func deleteNode(_ root: TreeNode?, _ key: Int) -> TreeNode? {
     return root
     
     func findMin(_ root: TreeNode?) -> TreeNode? {
-        guard var cur = root else { return nil }
-        while cur != nil && cur.left != nil {
-            cur = cur.left!
+        guard var root = root else { return nil }
+        while root.left != nil {
+            root = root.left!
         }
-        return cur
+        return root
     }
 }
 
