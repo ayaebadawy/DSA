@@ -31,3 +31,33 @@ func rotate(_ matrix: inout [[Int]]) {
         r -= 1
     }
 }
+
+//54. Spiral Matrix
+//https://leetcode.com/problems/spiral-matrix/description/
+func spiralOrder(_ matrix: [[Int]]) -> [Int] {
+    var res = [Int]()
+    var l = 0, r = matrix[0].count - 1
+    var top = 0, bottom = matrix.count - 1
+    while l <= r && top <= bottom {
+        for i in l...r {
+            res.append(matrix[top][i])
+        }
+        top += 1
+        if top > bottom { break }
+        for i in top...bottom { // crash at creation if range is invalid
+            res.append(matrix[i][r])
+        }
+        r -= 1
+        if l > r { break }
+        for i in stride(from: r, through: l, by: -1) { // skips execution entirely if the range is invalid
+            res.append(matrix[bottom][i])
+        }
+        bottom -= 1
+        if top > bottom { break }
+        for i in stride(from: bottom, through: top, by: -1) {
+            res.append(matrix[i][l])
+        }
+        l += 1
+    }
+    return res
+}
