@@ -61,3 +61,42 @@ func spiralOrder(_ matrix: [[Int]]) -> [Int] {
     }
     return res
 }
+
+//2013. Detect Squares     Time O(n)
+//https://leetcode.com/problems/detect-squares/description/
+class DetectSquares {
+    struct Point: Hashable {
+        let x: Int
+        let y: Int
+    }
+    var pts: [Point] // x,y
+    var ptsCount: [Point: Int] // (x,y) : count
+    
+    init() {
+        pts = []
+        ptsCount = [:]
+    }
+    
+    func add(_ point: [Int]) {
+        let pt = Point(x: point[0], y: point[1])
+        pts.append(pt)
+        ptsCount[pt, default: 0] += 1
+    }
+    
+    func count(_ point: [Int]) -> Int {
+        var res = 0
+        let px = point[0], py = point[1]
+        for pt in pts {
+            let x = pt.x, y = pt.y
+            if abs(x-px) == abs(y-py) && px != x && py != y {
+                let pt1 = Point(x: x, y: py)
+                let pt2 = Point(x: px, y: y)
+                if let p1Count = ptsCount[pt1],
+                   let p2Count = ptsCount[pt2] {
+                    res += p1Count * p2Count
+                }
+            }
+        }
+        return res
+    }
+}
