@@ -88,12 +88,13 @@ class DetectSquares {
         let px = point[0], py = point[1]
         for pt in pts {
             let x = pt.x, y = pt.y
-            if abs(x-px) == abs(y-py) && px != x && py != y {
-                let pt1 = Point(x: x, y: py)
-                let pt2 = Point(x: px, y: y)
+            if abs(x-px) == abs(y-py) && px != x && py != y { // check if there's a diagonal?
+                //diagonal is when x-x == y-y (0,0) (3,3)
+                let pt1 = Point(x: x, y: py) //get the top point
+                let pt2 = Point(x: px, y: y) //get the bottom point
                 if let p1Count = ptsCount[pt1],
                    let p2Count = ptsCount[pt2] {
-                    res += p1Count * p2Count
+                    res += p1Count * p2Count // if we have multiple copys, we consider them diff squars, and get their count and multiply
                 }
             }
         }
