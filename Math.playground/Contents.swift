@@ -160,3 +160,22 @@ func isHappy(_ n: Int) -> Bool {
         return output
     }
 }
+
+//509. Fibonacci Number    Time O(2^n)
+//https://leetcode.com/problems/fibonacci-number/
+func fib(_ n: Int) -> Int {
+    if n == 1 { return 1 }
+    if n == 0 { return 0 }
+    return fib(n-1) + fib(n-2)
+}
+
+//Another Solution with Time O(n)
+func fib2(_ n: Int) -> Int {
+    if n == 0 { return 0 }
+    if n == 1 { return 1 }
+    var ans = [0, 1]
+    for i in 2...n+1 {
+        ans.append(ans[i-1] + ans[i-2])
+    }
+    return ans[n]
+}
