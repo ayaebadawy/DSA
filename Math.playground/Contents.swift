@@ -179,3 +179,23 @@ func fib2(_ n: Int) -> Int {
     }
     return ans[n]
 }
+
+//43. Multiply Strings       Time O(n*m)
+//https://leetcode.com/problems/multiply-strings/
+func multiply(_ num1: String, _ num2: String) -> String {
+    if num1 == "0" || num2 == "0" { return "0" }
+    var num1 = Array(num1.reversed()), num2 = Array(num2.reversed())
+    var res = Array(repeating: 0, count: num1.count+num2.count)
+    for i1 in 0..<num1.count {
+        for i2 in 0..<num2.count {
+            let digit = Int(String(num1[i1]))! * Int(String(num2[i2]))!
+            res[i1 + i2] += digit
+            res[i1 + i2 + 1] += res[i1 + i2] / 10
+            res[i1 + i2] %= 10
+        }
+    }
+    res.reverse()
+    var beg = 0
+    while res[beg] == 0 && beg < res.count { beg += 1 }
+    return res[beg...].map{ String($0) }.joined()
+}
