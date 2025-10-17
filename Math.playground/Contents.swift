@@ -199,3 +199,36 @@ func multiply(_ num1: String, _ num2: String) -> String {
     while res[beg] == 0 && beg < res.count { beg += 1 }
     return res[beg...].map{ String($0) }.joined()
 }
+
+//73. Set Matrix Zeroes   Time O(n*m) Space O(n+m)
+//https://leetcode.com/problems/set-matrix-zeroes/
+func setZeroes(_ matrix: inout [[Int]]) {
+    var rows = matrix.count, cols = matrix[0].count
+    var rowsArr = Array(repeating: 1, count: rows)
+    var colsArr = Array(repeating: 1, count: cols)
+    
+    for i in 0..<rows {
+        for j in 0..<cols {
+            if matrix[i][j] == 0 {
+                rowsArr[i] = 0
+                colsArr[j] = 0
+            }
+        }
+    }
+    
+    for i in 0..<rows {
+        if rowsArr[i] == 0 {
+            for j in 0..<cols {
+                matrix[i][j] = 0
+            }
+        }
+    }
+    
+    for i in 0..<cols {
+        if colsArr[i] == 0 {
+            for j in 0..<rows {
+                matrix[j][i] = 0
+            }
+        }
+    }
+}
