@@ -42,3 +42,14 @@ func countKeyChanges(_ s: String) -> Int {
     return changes
 }
 
+//28. Find the Index of the First Occurrence in a String    Time O(n*m)
+//https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/description/
+func strStr(_ haystack: String, _ needle: String) -> Int {
+    if needle == "" { return 0 }
+    if needle.count > haystack.count { return -1 }
+    let haystack = Array(haystack)
+    for i in 0...(haystack.count - needle.count) {
+        if String(haystack[i..<needle.count+i]) == needle { return i }
+    }
+    return -1
+}
