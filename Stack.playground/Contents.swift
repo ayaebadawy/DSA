@@ -93,3 +93,17 @@ func preform(_ op1: Int,_ op2: Int, _ operation: String) -> Int {
 
 evalRPN(["4","13","5","/","+"])
 
+//853. Car Fleet     Time O(nlogn)
+//https://leetcode.com/problems/car-fleet/
+func carFleet(_ target: Int, _ position: [Int], _ speed: [Int]) -> Int {
+    var pairs = zip(position, speed).map { ($0,$1) }, stack = [Double]()
+    pairs.sort { $0.0 > $1.0 }
+    for (p,s) in pairs {
+        let time = Double(target - p) / Double(s)
+        stack.append(time)
+        if stack.count >= 2 && stack.last! <= stack[stack.count - 2] {
+            stack.removeLast()
+        }
+    }
+    return stack.count
+}
