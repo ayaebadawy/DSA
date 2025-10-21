@@ -115,3 +115,28 @@ func numIslands(_ grid: [[Character]]) -> Int {
     }
     return islands
 }
+
+//695. Max Area of Island      Time O(n*m)
+//https://leetcode.com/problems/max-area-of-island/description/
+func maxAreaOfIsland(_ grid: [[Int]]) -> Int {
+    var rows = grid.count, cols = grid[0].count
+    var visit = Set<String>(), maxArea = 0
+    for r in 0..<rows {
+        for c in 0..<cols {
+            if grid[r][c] == 1 {
+                maxArea = max(maxArea, dfs(r,c))
+            }
+        }
+    }
+    func dfs(_ r: Int, _ c: Int) -> Int {
+        var dir = [(0,1),(0,-1),(1,0),(-1,0)]
+        if r < rows && r >= 0 && c < cols && c >= 0 && grid[r][c] == 1 &&
+            !visit.contains("\(r) \(c)") {
+            visit.insert("\(r) \(c)")
+            return 1 + dfs(r+1,c) + dfs(r-1,c) + dfs(r,c-1) + dfs(r,c+1)
+        } else {
+            return 0
+        }
+    }
+    return maxArea
+}
