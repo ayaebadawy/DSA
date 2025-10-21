@@ -90,3 +90,28 @@ func pacificAtlantic(_ heights: [[Int]]) -> [[Int]] {
     return Array(pac.intersection(atl))
 }
 
+//200. Number of Islands       Time O(n*m)
+//https://leetcode.com/problems/number-of-islands/description/
+func numIslands(_ grid: [[Character]]) -> Int {
+    var rows = grid.count, cols = grid[0].count
+    var visit = Set<String>(), islands = 0
+    for r in 0..<rows {
+        for c in 0..<cols {
+            if grid[r][c] == "1" && !visit.contains("\(r) \(c)") {
+                dfs(r,c)
+                islands += 1
+            }
+        }
+    }
+    func dfs(_ r: Int, _ c: Int) {
+        if r < rows && r >= 0 && c < cols && c >= 0 &&
+            !visit.contains("\(r) \(c)") && grid[r][c] == "1" {
+            visit.insert("\(r) \(c)")
+            dfs(r+1, c)
+            dfs(r-1, c)
+            dfs(r, c+1)
+            dfs(r, c-1)
+        }
+    }
+    return islands
+}
