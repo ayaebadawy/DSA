@@ -18,9 +18,7 @@ func canFinish(_ numCourses: Int, _ prerequisites: [[Int]]) -> Bool {
     
     //post order dfs treversal: we process the childeren first and then process the parent
     func dfs(_ course: Int) -> Bool {
-        if let seen = visit[course] {
-            return seen
-        }
+        if let seen = visit[course] { return seen }
         visit[course] = false
         for prereq in adjList[course, default: []] {
             if !dfs(prereq) { return false }
@@ -139,4 +137,42 @@ func maxAreaOfIsland(_ grid: [[Int]]) -> Int {
         }
     }
     return maxArea
+}
+
+//130. Surrounded Regions    Time O(n*m)
+//https://leetcode.com/problems/surrounded-regions/
+func solve(_ board: inout [[Character]]) {
+    var rows = board.count, cols = board[0].count
+    //capture unsurronded regions on boarder
+    for r in 0..<rows {
+        dfs(r, 0)
+        dfs(r, cols-1)
+    }
+    for c in 0..<cols {
+        dfs(0, c)
+        dfs(rows-1, c)
+    }
+    //capture surronded regions inside
+    for r in 0..<rows {
+        for c in 0..<cols {
+            if board[r][c] == "O" { board[r][c] = "X" }
+        }
+    }
+    //uncapture unsurronded regions, which we tured into a temp var
+    for r in 0..<rows {
+        for c in 0..<cols {
+            if board[r][c] == "T" { board[r][c] = "O" }
+        }
+    }
+    
+    func dfs(_ r: Int, _ c: Int) {
+        if r < rows && r >= 0
+            && c < cols && c >= 0 && board[r][c] == "O" {
+            board[r][c] = "T"
+            dfs(r+1, c)
+            dfs(r-1, c)
+            dfs(r, c+1)
+            dfs(r, c-1)
+        }
+    }
 }
