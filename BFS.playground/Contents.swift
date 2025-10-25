@@ -29,3 +29,40 @@ func orangesRotting(_ grid: [[Int]]) -> Int {
     }
     return fresh == 0 ? time : -1
 }
+
+//127. Word Ladder
+//https://leetcode.com/problems/word-ladder/
+func ladderLength(_ beginWord: String, _ endWord: String,
+                  _ wordList: [String]) -> Int {
+    if !wordList.contains(endWord) { return 0 }
+    var adjList = [String: [String]]() //pattern h*t: [hot, hit, het]
+    var wordList = wordList
+    wordList.append(beginWord)
+    for w in wordList {
+        for j in 0..<w.count {
+            var pattern = Array(w)
+            pattern[j] = "*"
+            adjList[String(pattern), default: []].append(w)
+        }
+    }
+    var visit: Set<String> = [beginWord]
+    var q = [beginWord]
+    var res = 1
+    while !q.isEmpty {
+        for _ in 0..<q.count {
+            var w = q.removeFirst()
+            if w == endWord { return res }
+            for j in 0..<w.count {
+                var pattern = Array(w)
+                pattern[j] = "*"
+                for nei in adjList[String(pattern), default: []]
+                where !visit.contains(nei) {
+                    visit.insert(nei)
+                    q.append(nei)
+                }
+            }
+        }
+        res += 1
+    }
+    return 0
+}
